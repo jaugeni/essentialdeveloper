@@ -40,7 +40,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         
         expect(
             sut,
-            toCompleteWith: .failure(RemoteFeedLoader.Error.connectivity),
+            toCompleteWith: failure(.connectivity),
             when: {
                 let clientError = NSError(domain: "Test", code: 0)
                 client.complete(with: clientError)
@@ -55,7 +55,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         sampels.enumerated().forEach { index, code in
             expect(
                 sut,
-                toCompleteWith: .failure(RemoteFeedLoader.Error.invalidData),
+                toCompleteWith: failure(.invalidData),
                 when: {
                     let json = makeItemsJSON([])
                     client.complete(withStatusCode: code, data: json, at: index)
@@ -69,7 +69,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         
         expect(
             sut,
-            toCompleteWith: .failure(RemoteFeedLoader.Error.invalidData),
+            toCompleteWith: failure(.invalidData),
             when: {
                 let invalidJSON = makeItemsJSON([["fake": "invalid JSON"]])
                 client.complete(withStatusCode: 200, data: invalidJSON)
@@ -131,6 +131,22 @@ final class RemoteFeedLoaderTests: XCTestCase {
     
     // MARK - Helpers
     
+    private func makeSUT(
+        url: URL = URL(string: "https://a-url.com")!,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> (sut: RemoteFeedLoader, cliet: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut =  RemoteFeedLoader(url: url, client: client)
+        trackForMemoryLeaks(client)
+        trackForMemoryLeaks(sut)
+        return (sut, client)
+    }
+    
+    private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
+        .failure(error)
+    }
+    
     private func makeItem(
         id: UUID,
         description: String? = nil,
@@ -186,18 +202,6 @@ final class RemoteFeedLoaderTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1.0)
-    }
-    
-    private func makeSUT(
-        url: URL = URL(string: "https://a-url.com")!,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) -> (sut: RemoteFeedLoader, cliet: HTTPClientSpy) {
-        let client = HTTPClientSpy()
-        let sut =  RemoteFeedLoader(url: url, client: client)
-        trackForMemoryLeaks(client)
-        trackForMemoryLeaks(sut)
-        return (sut, client)
     }
     
     private func trackForMemoryLeaks(
