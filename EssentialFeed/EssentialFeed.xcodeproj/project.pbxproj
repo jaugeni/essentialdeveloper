@@ -15,6 +15,7 @@
 		02781A752A5E3A11004D8195 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02781A502A5E324F004D8195 /* EssentialFeed.framework */; };
 		02781A7C2A5E3ACB004D8195 /* RemoteFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02781A7B2A5E3ACB004D8195 /* RemoteFeedLoaderTests.swift */; };
 		02781A7F2A5E460D004D8195 /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02781A7E2A5E460D004D8195 /* RemoteFeedLoader.swift */; };
+		02C1D5E32A6893A10079E5FC /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1D5E22A6893A10079E5FC /* URLSessionHTTPClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		02781A712A5E3A11004D8195 /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02781A7B2A5E3ACB004D8195 /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
 		02781A7E2A5E460D004D8195 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
+		02C1D5E22A6893A10079E5FC /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				02781A7B2A5E3ACB004D8195 /* RemoteFeedLoaderTests.swift */,
+				02C1D5E22A6893A10079E5FC /* URLSessionHTTPClientTests.swift */,
 			);
 			path = FeedApi;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02781A7C2A5E3ACB004D8195 /* RemoteFeedLoaderTests.swift in Sources */,
+				02C1D5E32A6893A10079E5FC /* URLSessionHTTPClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
