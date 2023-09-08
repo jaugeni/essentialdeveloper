@@ -24,12 +24,12 @@ class LocalFeedLoader {
             if let cachDeletionError = error {
                 compeltion(cachDeletionError)
             } else {
-                self.cahce(items, with: compeltion)
+                self.cache(items, with: compeltion)
             }
         }
     }
     
-    private func cahce(_ items: [FeedItem], with compeltion: @escaping (Error?) -> Void) {
+    private func cache(_ items: [FeedItem], with compeltion: @escaping (Error?) -> Void) {
         store.insert(items, timestamp: currentDate()) { [weak self] error in
             guard self != nil else { return}
             compeltion(error)
