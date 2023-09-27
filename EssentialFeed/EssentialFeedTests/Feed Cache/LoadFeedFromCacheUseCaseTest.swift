@@ -44,22 +44,33 @@ class LoadFeedFromCacheUseCaseTest: XCTestCase {
     func test_load_deliversCachedImagesOnLessThenSevenDaysOldCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentdate = Date()
-        let lessThamSavenDaysOldTimeStamp = fixedCurrentdate.adding(days: -7).adding(seconds: 1)
+        let lessThanSavenDaysOldTimeStamp = fixedCurrentdate.adding(days: -7).adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentdate })
         
         expect(sut, toCompleteWith: .success(feed.models), when:  {
-            store.copmleteRetrieval(with: feed.local, timestamp: lessThamSavenDaysOldTimeStamp)
+            store.copmleteRetrieval(with: feed.local, timestamp: lessThanSavenDaysOldTimeStamp)
         })
     }
     
     func test_load_deliversNoImagesOnSevenDaysOldCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentdate = Date()
-        let lessThamSavenDaysOldTimeStamp = fixedCurrentdate.adding(days: -7)
+        let lessThanSavenDaysOldTimeStamp = fixedCurrentdate.adding(days: -7)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentdate })
         
         expect(sut, toCompleteWith: .success([]), when:  {
-            store.copmleteRetrieval(with: feed.local, timestamp: lessThamSavenDaysOldTimeStamp)
+            store.copmleteRetrieval(with: feed.local, timestamp: lessThanSavenDaysOldTimeStamp)
+        })
+    }
+    
+    func test_load_deliversNoImagesOnMoreThenSevenDaysOldCache() {
+        let feed = uniqueImageFeed()
+        let fixedCurrentdate = Date()
+        let moreThanSavenDaysOldTimeStamp = fixedCurrentdate.adding(days: -7).adding(days: -1)
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentdate })
+        
+        expect(sut, toCompleteWith: .success([]), when:  {
+            store.copmleteRetrieval(with: feed.local, timestamp: moreThanSavenDaysOldTimeStamp)
         })
     }
     
