@@ -51,17 +51,17 @@ extension LocalFeedLoader {
     }
 }
 
-extension LocalFeedLoader {
-    public func load(completion: @escaping (LoadResult) -> Void) {
+extension LocalFeedLoader: FeedLoader {
+    public func load(compleation: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard let self else { return}
             switch result {
             case let .failure(error):
-                completion(.failure(error))
+                compleation(.failure(error))
             case let .found(feed, timestamp) where self.validate(timestamp):
-                completion(.success(feed.toModels()))
+                compleation(.success(feed.toModels()))
             case .found, .empty:
-                completion(.success([]))
+                compleation(.success([]))
             }
         }
     }
