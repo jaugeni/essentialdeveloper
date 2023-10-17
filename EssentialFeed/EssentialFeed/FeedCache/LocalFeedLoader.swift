@@ -8,32 +8,26 @@
 import Foundation
 
 private final class FeedCachepolicy {
-    private let currentDate:  () -> Date
     private let calendar = Calendar(identifier: .gregorian)
-    
-    init(currentDate: @escaping () -> Date) {
-        self.currentDate = currentDate
-    }
     
     private var maxCacheAgeInDays: Int {
         return 7
     }
     
-    func validate(_ timestamp: Date) -> Bool {
+    func validate(_ timestamp: Date, against date: Date) -> Bool {
         guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else { return false }
-        return currentDate() < maxCacheAge
+        return date < maxCacheAge
     }
 }
 
 public final class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate:  () -> Date
-    private let cachPolicy: FeedCachepolicy
+    private let cachPolicy = FeedCachepolicy()
     
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
-        self.cachPolicy = FeedCachepolicy(currentDate: currentDate)
     }
 }
 
@@ -69,7 +63,7 @@ extension LocalFeedLoader: FeedLoader {
             switch result {
             case let .failure(error):
                 compleation(.failure(error))
-            case let .found(feed, timestamp) where self.cachPolicy.validate(timestamp):
+            case let .found(feed, timestamp) where self.cachPolicy.validate(timestamp, against: self.currentDate()):
                 compleation(.success(feed.toModels()))
             case .found, .empty:
                 compleation(.success([]))
@@ -85,7 +79,7 @@ extension LocalFeedLoader {
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-            case let .found(_, timestamp) where !self.cachPolicy.validate(timestamp):
+            case let .found(_, timestamp) where !self.cachPolicy.validate(timestamp, against: self.currentDate()):
                 self.store.deleteCachedFeed { _ in }
             case .empty, .found: break
             }
