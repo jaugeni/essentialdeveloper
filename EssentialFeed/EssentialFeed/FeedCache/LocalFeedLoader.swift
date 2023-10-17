@@ -7,14 +7,11 @@
 
 import Foundation
 
-public final class LocalFeedLoader {
-
-    private let store: FeedStore
+private final class FeedCachepolicy {
     private let currentDate:  () -> Date
     private let calendar = Calendar(identifier: .gregorian)
     
-    public init(store: FeedStore, currentDate: @escaping () -> Date) {
-        self.store = store
+    init(currentDate: @escaping () -> Date) {
         self.currentDate = currentDate
     }
     
@@ -22,9 +19,21 @@ public final class LocalFeedLoader {
         return 7
     }
     
-    private func validate(_ timestamp: Date) -> Bool {
+    func validate(_ timestamp: Date) -> Bool {
         guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else { return false }
         return currentDate() < maxCacheAge
+    }
+}
+
+public final class LocalFeedLoader {
+    private let store: FeedStore
+    private let currentDate:  () -> Date
+    private let cachPolicy: FeedCachepolicy
+    
+    public init(store: FeedStore, currentDate: @escaping () -> Date) {
+        self.store = store
+        self.currentDate = currentDate
+        self.cachPolicy = FeedCachepolicy(currentDate: currentDate)
     }
 }
 
@@ -60,7 +69,7 @@ extension LocalFeedLoader: FeedLoader {
             switch result {
             case let .failure(error):
                 compleation(.failure(error))
-            case let .found(feed, timestamp) where self.validate(timestamp):
+            case let .found(feed, timestamp) where self.cachPolicy.validate(timestamp):
                 compleation(.success(feed.toModels()))
             case .found, .empty:
                 compleation(.success([]))
@@ -76,7 +85,7 @@ extension LocalFeedLoader {
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-            case let .found(_, timestamp) where !self.validate(timestamp):
+            case let .found(_, timestamp) where !self.cachPolicy.validate(timestamp):
                 self.store.deleteCachedFeed { _ in }
             case .empty, .found: break
             }
