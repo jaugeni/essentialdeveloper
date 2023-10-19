@@ -68,7 +68,7 @@ class CodableFeedStoreTestsL: XCTestCase {
     }
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { result in
@@ -86,7 +86,7 @@ class CodableFeedStoreTestsL: XCTestCase {
     }
 
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { firstResult in
@@ -106,7 +106,7 @@ class CodableFeedStoreTestsL: XCTestCase {
     }
     
     func test_retrieveAfterInsertingToEmptyCache_deliversInsertedValues() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         let exp = expectation(description: "Wait for cache retrieval")
@@ -128,5 +128,13 @@ class CodableFeedStoreTestsL: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    // - MARK: Helpers
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+        let sut = CodableFeedStore()
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return sut
     }
 }
