@@ -32,6 +32,7 @@
 		02C1D5E32A6893A10079E5FC /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1D5E22A6893A10079E5FC /* URLSessionHTTPClientTests.swift */; };
 		02DED2132AA96F5000F32F0E /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DED2122AA96F5000F32F0E /* CacheFeedUseCaseTests.swift */; };
 		02F9B5132AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9B5122AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift */; };
+		02FA2D3D2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA2D3C2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		02C1D5E22A6893A10079E5FC /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		02DED2122AA96F5000F32F0E /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		02F9B5122AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
+		02FA2D3C2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				02DED2122AA96F5000F32F0E /* CacheFeedUseCaseTests.swift */,
 				02876F9D2AB3F1B300E46E68 /* LoadFeedFromCacheUseCaseTest.swift */,
 				02F9B5122AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift */,
+				02FA2D3C2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02FA2D3D2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift in Sources */,
 				02C009E92AC522F500F06C7D /* FeedCacheTestHelpers.swift in Sources */,
 				02F9B5132AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift in Sources */,
 				0281BB662A78864000A3F3DA /* XCTTestCase+MemoryLeakTracker.swift in Sources */,
