@@ -66,7 +66,18 @@ class CodableFeedStore {
             completion(error)
         }
     }
-
+    
+    func deleteCachedFeed(completion: @escaping FeedStore.DeletionCompletion) {
+        guard let _ = try? Data(contentsOf: storeURL) else {
+            return completion(nil)
+        }
+        do {
+            try FileManager.default.removeItem(at: storeURL)
+            print("Successfully deleted file!")
+        } catch {
+            completion(error)
+        }
+    }
 }
 
 class CodableFeedStoreTests: XCTestCase {
@@ -144,6 +155,7 @@ class CodableFeedStoreTests: XCTestCase {
         let latestInsertionError = insert((latestFeed, latestTimeStamp), to: sut)
         
         XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
+        
         expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimeStamp))
     }
     
@@ -156,6 +168,15 @@ class CodableFeedStoreTests: XCTestCase {
         let insertionError = insert((feed, timestamp), to: sut)
         
         XCTAssertNotNil(insertionError, "Expected cache insertion to file with an error")
+    }
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let sut = makeSUT()
+        
+        let deletionError = deleCache(from: sut)
+
+        XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+        expect(sut, toRetrieve: .empty)
     }
     
     // - MARK: Helpers
@@ -217,6 +238,21 @@ class CodableFeedStoreTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1.0)
         return insertedError
+    }
+    
+    private func deleCache(
+        from sut: CodableFeedStore) -> Error?
+    {
+        let exp = expectation(description: "Wait for cache deleted")
+        var deletedError: Error?
+        
+        sut.deleteCachedFeed { receivedDeletedError in
+            deletedError = receivedDeletedError
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
+        return deletedError
     }
     
     private func setupEmptyStoreSate() {
