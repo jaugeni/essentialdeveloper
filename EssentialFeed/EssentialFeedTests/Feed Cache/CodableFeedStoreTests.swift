@@ -68,7 +68,7 @@ class CodableFeedStore {
     }
     
     func deleteCachedFeed(completion: @escaping FeedStore.DeletionCompletion) {
-        guard let _ = try? Data(contentsOf: storeURL) else {
+        guard FileManager.default.fileExists(atPath: storeURL.path) else {
             return completion(nil)
         }
         do {
@@ -189,6 +189,15 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieve: .empty)
     }
     
+    func test_delete_deliversErrorOnDeletionError() {
+        let noDeletePermissionURL = cacheDirectory()
+        let sut = makeSUT(storeURL: noDeletePermissionURL)
+        
+        let deletionError = deleCache(from: sut)
+
+        XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
+    }
+    
     // - MARK: Helpers
     
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
@@ -278,6 +287,10 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     private func testSpecificStoreURL() -> URL {
-        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("\(type(of: self)).store")
+        cacheDirectory().appendingPathComponent("\(type(of: self)).store")
+    }
+    
+    private func cacheDirectory() -> URL {
+        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
 }
