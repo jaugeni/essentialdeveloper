@@ -32,6 +32,7 @@
 		0292D9F82B28D78200D7C249 /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292D9F72B28D78200D7C249 /* XCTestCase+FailableInsertFeedStoreSpecs.swift */; };
 		0292D9FA2B28D81700D7C249 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292D9F92B28D81700D7C249 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */; };
 		0292D9FC2B28E52800D7C249 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0292D9FB2B28E52800D7C249 /* CoreDataFeedStore.swift */; };
+		0292D9FF2B28EAC800D7C249 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0292D9FD2B28EAC800D7C249 /* FeedStore.xcdatamodeld */; };
 		02A81D6F2A79DDC000C2B2E5 /* EssentialFeedAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A81D6E2A79DDC000C2B2E5 /* EssentialFeedAPIEndToEndTests.swift */; };
 		02A81D702A79DDC000C2B2E5 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02781A502A5E324F004D8195 /* EssentialFeed.framework */; };
 		02A81D762A79E92300C2B2E5 /* XCTTestCase+MemoryLeakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0281BB652A78864000A3F3DA /* XCTTestCase+MemoryLeakTracker.swift */; };
@@ -89,6 +90,7 @@
 		0292D9F72B28D78200D7C249 /* XCTestCase+FailableInsertFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableInsertFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		0292D9F92B28D81700D7C249 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableDeleteFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		0292D9FB2B28E52800D7C249 /* CoreDataFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStore.swift; sourceTree = "<group>"; };
+		0292D9FE2B28EAC800D7C249 /* FeedStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedStore.xcdatamodel; sourceTree = "<group>"; };
 		02A81D6C2A79DDC000C2B2E5 /* EssentialFeedAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A81D6E2A79DDC000C2B2E5 /* EssentialFeedAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedAPIEndToEndTests.swift; sourceTree = "<group>"; };
 		02C009E82AC522F500F06C7D /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				021936802ADE1DB6009B95FF /* FeedCachepolicy.swift */,
 				0292D9EC2B277C3A00D7C249 /* CodableFeedStore.swift */,
 				0292D9FB2B28E52800D7C249 /* CoreDataFeedStore.swift */,
+				0292D9FD2B28EAC800D7C249 /* FeedStore.xcdatamodeld */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				02781A5D2A5E376D004D8195 /* FeedLoader.swift in Sources */,
 				02876F9A2AB2AD6C00E46E68 /* RemoteFeedItem.swift in Sources */,
 				02781A7F2A5E460D004D8195 /* RemoteFeedLoader.swift in Sources */,
+				0292D9FF2B28EAC800D7C249 /* FeedStore.xcdatamodeld in Sources */,
 				02876F9C2AB2ADB500E46E68 /* LocalFeedImage.swift in Sources */,
 				02876F982AAAD28300E46E68 /* FeedStore.swift in Sources */,
 				02876F962AAAD21A00E46E68 /* LocalFeedLoader.swift in Sources */,
@@ -753,6 +757,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0292D9FD2B28EAC800D7C249 /* FeedStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0292D9FE2B28EAC800D7C249 /* FeedStore.xcdatamodel */,
+			);
+			currentVersion = 0292D9FE2B28EAC800D7C249 /* FeedStore.xcdatamodel */;
+			path = FeedStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 02781A472A5E324F004D8195 /* Project object */;
 }
