@@ -5,4 +5,9 @@
 //  Created by Yauheni Ivaniuk on 12/12/23.
 //
 
-import Foundation
+import XCTest
+@testable import EssentialFeed
+
+class CoreDataFeedStoreTests: XCTestCase {
+    
+}
