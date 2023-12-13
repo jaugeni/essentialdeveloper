@@ -30,7 +30,7 @@ public final class CoreDataFeedStore: FeedStore {
         }
     }
     
-    public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompCompletion) {
+    public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
         perform { context in
             do {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
