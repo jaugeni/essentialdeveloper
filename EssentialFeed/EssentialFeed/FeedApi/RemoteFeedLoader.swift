@@ -34,8 +34,8 @@ public final class RemoteFeedLoader: FeedLoader {
             }
             
             switch result {
-            case let .success(data, response):
-                compleation(RemoteFeedLoader.map(data, for: response))
+            case let .success(responce):
+                compleation(RemoteFeedLoader.map(responce.0, for: responce.1))
             case .failure:
                 compleation(.failure(Error.connectivity))
             }
