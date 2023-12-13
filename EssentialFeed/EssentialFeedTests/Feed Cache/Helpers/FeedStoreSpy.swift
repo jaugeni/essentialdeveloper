@@ -18,34 +18,34 @@ class FeedStoreSpy: FeedStore {
     
     private(set) var recievedMessages = [ReceivedMessagges]()
     
-    private var deletionCompleations = [DeletionCompletion]()
-    private var insertionCompleations = [InsertionCompCompletion]()
+    private var deletionCompletions = [DeletionCompletion]()
+    private var insertionCompletions = [InsertionCompletion]()
     private var retrivalCompleations = [RetrivalCompleation]()
     
     func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        deletionCompleations.append(completion)
+        deletionCompletions.append(completion)
         recievedMessages.append(.deleteCacheFeed)
     }
     
     func completeDeletion(with error: Error, at index: Int = 0) {
-        deletionCompleations[index](error)
+        deletionCompletions[index](.failure(error))
     }
     
     func completeDeletionSuccessfully(at index: Int = 0) {
-        deletionCompleations[index](nil)
+        deletionCompletions[index](.success(()))
     }
     
-    func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompCompletion) {
-        insertionCompleations.append(completion)
+    func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
+        insertionCompletions.append(completion)
         recievedMessages.append(.insert(feed, timestamp))
     }
     
     func completeInsertion (with error: Error, at index: Int = 0) {
-        insertionCompleations[index](error)
+        insertionCompletions[index](.failure(error))
     }
     
     func completeInsertionSuccesfully(at index: Int = 0) {
-        insertionCompleations[index](nil)
+        insertionCompletions[index](.success(()))
     }
     
     func retrieve(completion: @escaping RetrivalCompleation) {
