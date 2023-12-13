@@ -13,6 +13,7 @@
 		021763442B2958EA00C29971 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 021763432B2958EA00C29971 /* Assets.xcassets */; };
 		021763472B2958EA00C29971 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021763452B2958EA00C29971 /* LaunchScreen.storyboard */; };
 		0217634F2B29618200C29971 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217634E2B29618200C29971 /* FeedViewController.swift */; };
+		021763512B29632C00C29971 /* FeedImageViewModel+PrototypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021763502B29632C00C29971 /* FeedImageViewModel+PrototypeData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		021763462B2958EA00C29971 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		021763482B2958EA00C29971 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0217634E2B29618200C29971 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		021763502B29632C00C29971 /* FeedImageViewModel+PrototypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImageViewModel+PrototypeData.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				0217633A2B2958DF00C29971 /* AppDelegate.swift */,
 				0217633C2B2958DF00C29971 /* SceneDelegate.swift */,
 				0217634E2B29618200C29971 /* FeedViewController.swift */,
+				021763502B29632C00C29971 /* FeedImageViewModel+PrototypeData.swift */,
 				021763402B2958DF00C29971 /* Main.storyboard */,
 				021763432B2958EA00C29971 /* Assets.xcassets */,
 				021763452B2958EA00C29971 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				0217633B2B2958DF00C29971 /* AppDelegate.swift in Sources */,
 				0217634F2B29618200C29971 /* FeedViewController.swift in Sources */,
 				0217633D2B2958DF00C29971 /* SceneDelegate.swift in Sources */,
+				021763512B29632C00C29971 /* FeedImageViewModel+PrototypeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
