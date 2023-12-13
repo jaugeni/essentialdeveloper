@@ -48,28 +48,29 @@ public final class CodableFeedStore: FeedStore {
             guard let data = try? Data(contentsOf: storeURL) else {
                 return completion(.success(.none))
             }
-            do {
-                let decoder = JSONDecoder()
-                let cache = try decoder.decode(Cache.self, from: data)
-                completion(.success(CacheFeed(feed: cache.localFeed, timestamp: cache.timestamp)))
-            } catch {
-                completion(.failure(error))
-            }
+            completion(
+                Result(catching: {
+                    let decoder = JSONDecoder()
+                    let cache = try decoder.decode(Cache.self, from: data)
+                    return CacheFeed(feed: cache.localFeed, timestamp: cache.timestamp)
+                })
+            )
         }
+        
     }
     
     public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
         let storeURL = self.storeURL
         queue.async(flags: .barrier) {
-            do {
-                let encoder = JSONEncoder()
-                let cache = Cache(feed: feed.map(CadableFeedImage.init), timestamp: timestamp)
-                let encoded = try encoder.encode(cache)
-                try encoded.write(to: storeURL)
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
+            completion(
+                Result(catching: {
+                    let encoder = JSONEncoder()
+                    let cache = Cache(feed: feed.map(CadableFeedImage.init), timestamp: timestamp)
+                    let encoded = try encoder.encode(cache)
+                    try encoded.write(to: storeURL)
+                    return ()
+                })
+            )
         }
     }
     
@@ -79,12 +80,12 @@ public final class CodableFeedStore: FeedStore {
             guard FileManager.default.fileExists(atPath: storeURL.path) else {
                 return completion(.success(()))
             }
-            do {
-                try FileManager.default.removeItem(at: storeURL)
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
+            completion(
+                Result(catching: {
+                    try FileManager.default.removeItem(at: storeURL)
+                    return ()
+                })
+            )
         }
     }
 }
