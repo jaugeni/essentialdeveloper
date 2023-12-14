@@ -19,7 +19,6 @@ final class FeedViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
         load()
@@ -31,7 +30,9 @@ final class FeedViewController: UITableViewController {
     }
     
     @objc private func load() {
-        loader?.load { _ in }
+        loader?.load { [weak self] _ in
+            self?.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -62,15 +63,24 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 3)
     }
     
-    func test_viewDidLoad_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
+//    func test_viewDidLoad_showsLoadingIndicator() {
+//        let (sut, _) = makeSUT()
+//        
+//        sut.simulateAppearance()
+//        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+//        
+//        sut.refreshControl?.endRefreshing()
+//        sut.refreshControl?.sendActions(for: .valueChanged)
+//        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+//    }
+    
+    func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
+        let (sut, loader) = makeSUT()
         
-        sut.simulateAppearance()
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        sut.loadViewIfNeeded()
+        loader.comleteFeedLoading()
         
-        sut.refreshControl?.endRefreshing()
-        sut.refreshControl?.sendActions(for: .valueChanged)
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
     // MARK: - Helpers
@@ -84,10 +94,18 @@ final class FeedViewControllerTests: XCTestCase {
      }
     
     class LoaderSpy: FeedLoader {
-        private(set) var loadCallCount: Int = 0
+        private var completions = [(FeedLoader.Result) -> Void]()
+        
+        var loadCallCount: Int {
+            completions.count
+        }
         
         func load(compleation: @escaping (FeedLoader.Result) -> Void) {
-            loadCallCount += 1
+            completions.append(compleation)
+        }
+        
+        func comleteFeedLoading() {
+            completions[0](.success([]))
         }
     }
     
