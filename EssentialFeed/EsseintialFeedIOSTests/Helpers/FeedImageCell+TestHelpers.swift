@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import EssentialFeediOS
+import EsseintialFeedIOS
 
 extension FeedImageCell {
     func simulateRetryAction() {
