@@ -54,6 +54,7 @@
 		02DED2132AA96F5000F32F0E /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DED2122AA96F5000F32F0E /* CacheFeedUseCaseTests.swift */; };
 		02F10E8C2B2B6349000272F6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F10E8B2B2B6349000272F6 /* FeedViewController.swift */; };
 		02F10E8E2B2B65E5000272F6 /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F10E8D2B2B65E5000272F6 /* FeedImageCell.swift */; };
+		02F10E902B2B7393000272F6 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F10E8F2B2B7393000272F6 /* UIView+Shimmering.swift */; };
 		02F9B5132AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9B5122AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift */; };
 		02FA2D3D2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA2D3C2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,7 @@
 		02DED2122AA96F5000F32F0E /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		02F10E8B2B2B6349000272F6 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		02F10E8D2B2B65E5000272F6 /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
+		02F10E8F2B2B7393000272F6 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		02F9B5122AC51C4700B307F9 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		02FA2D3C2AE0BD4E00F8D94B /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -216,6 +218,7 @@
 			children = (
 				02F10E8B2B2B6349000272F6 /* FeedViewController.swift */,
 				02F10E8D2B2B65E5000272F6 /* FeedImageCell.swift */,
+				02F10E8F2B2B7393000272F6 /* UIView+Shimmering.swift */,
 			);
 			path = EsseintialFeedIOS;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F10E902B2B7393000272F6 /* UIView+Shimmering.swift in Sources */,
 				02F10E8C2B2B6349000272F6 /* FeedViewController.swift in Sources */,
 				02F10E8E2B2B65E5000272F6 /* FeedImageCell.swift in Sources */,
 			);
