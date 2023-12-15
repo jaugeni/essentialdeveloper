@@ -724,6 +724,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"be-BY",
 			);
 			mainGroup = 02781A462A5E324F004D8195;
 			productRefGroup = 02781A512A5E324F004D8195 /* Products */;
