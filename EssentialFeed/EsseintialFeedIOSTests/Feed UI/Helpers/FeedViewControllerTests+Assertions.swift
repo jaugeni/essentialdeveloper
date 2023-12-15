@@ -9,7 +9,7 @@ import XCTest
 import EssentialFeed
 import EsseintialFeedIOS
 
-extension FeedViewControllerTests {
+extension FeedUIIntegrationTests {
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposedWith(feedLoader: loader, imageLoader: loader)

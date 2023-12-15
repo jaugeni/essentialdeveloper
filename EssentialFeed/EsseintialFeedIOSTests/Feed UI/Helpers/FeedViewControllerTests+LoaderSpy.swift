@@ -9,7 +9,7 @@ import Foundation
 import EssentialFeed
 import EsseintialFeedIOS
 
-extension FeedViewControllerTests {
+extension FeedUIIntegrationTests {
     class LoaderSpy: FeedLoader, FeedImageDataLoader {
         // MARK: - FeedLoader
         private var feedRequests = [(FeedLoader.Result) -> Void]()
