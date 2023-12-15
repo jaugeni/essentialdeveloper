@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import EssentialFeed
 
 protocol FeedImageView {
