@@ -7,18 +7,22 @@
 
 import UIKit
 
+protocol FeedRefreshViewControllerDelegate {
+    func didRequestFeedRefresh()
+}
+
 final public class FeedRefreshViewController: NSObject, FeedLoadingView {
     
-     public lazy var view = loadingView()
+    public lazy var view = loadingView()
     
-    private let loadFeed: () -> Void
+    private let delegate: FeedRefreshViewControllerDelegate
     
-    init(loadFeed: @escaping () -> Void) {
-        self.loadFeed = loadFeed
+    init(delegate: FeedRefreshViewControllerDelegate) {
+        self.delegate = delegate
     }
     
     @objc func refresh() {
-        loadFeed()
+        delegate.didRequestFeedRefresh()
     }
     
     func display(_ viewModel: FeedLoadingViewModel) {
@@ -39,19 +43,19 @@ final public class FeedRefreshViewController: NSObject, FeedLoadingView {
 // MVVMV Version
 //final public class FeedRefreshViewController: NSObject {
 //     public lazy var view = binded(UIRefreshControl())
-//    
+//
 //    private let viewModel: FeedViewModel
-//    
+//
 //    init(viewModel: FeedViewModel) {
 //        self.viewModel = viewModel
 //    }
-//    
+//
 //    @objc func refresh() {
 //        viewModel.loadFeed()
 //    }
-//    
+//
 //    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
-//        
+//
 //        viewModel.onLoadingStateChange = { [weak self] isLoading in
 //            if isLoading {
 //                self?.view.beginRefreshing()
