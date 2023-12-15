@@ -12,8 +12,9 @@ public final class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let presenter = FeedPresenter(feedLoader: feedLoader)
-        let refreshControler = FeedRefreshViewController(loadFeed: presenter.loadFeed)
+        let presenter = FeedPresenter()
+        let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: feedLoader, presenter: presenter)
+        let refreshControler = FeedRefreshViewController(loadFeed: presentationAdapter.loadFeed)
         let feedController = FeedViewController(refreshController: refreshControler)
         presenter.loadingView = WeakRefVirtualProxy(refreshControler)
         presenter.feedView = FeedViewAdapter(controller: feedController, imageLoader: imageLoader)
@@ -72,10 +73,34 @@ private final class FeedViewAdapter: FeedView {
     }
 }
 
+private final class FeedLoadingPresentationAdapter {
+    private var feedLoader: FeedLoader
+    private let presenter: FeedPresenter
+    
+    init(feedLoader: FeedLoader, presenter: FeedPresenter) {
+        self.feedLoader = feedLoader
+        self.presenter = presenter
+    }
+    
+    func loadFeed() {
+        presenter.didStartLoadingFeed()
+        
+        feedLoader.load { [weak self] result in
+            switch result {
+            case let .success(feed):
+                self?.presenter.didFinishLoadingFeed(with: feed)
+                
+            case let .failure(error):
+                self?.presenter.didFinishLoadingFeed(with: error)
+            }
+        }
+    }
+}
+
 // MVVM Version
 //public final class FeedUIComposer {
 //    private init() {}
-//    
+//
 //    public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
 //        let feedViewModel = FeedViewModel(feedLoader: feedLoader)
 //        let refreshControler = FeedRefreshViewController(viewModel: feedViewModel)
@@ -83,7 +108,7 @@ private final class FeedViewAdapter: FeedView {
 //        feedViewModel.onFeedLoad = adaptFeedToCellControllers(forwardingTo: feedController, loader: imageLoader)
 //        return feedController
 //    }
-//    
+//
 //    private static func adaptFeedToCellControllers(forwardingTo controller: FeedViewController, loader: FeedImageDataLoader) -> ([FeedImage]) -> Void {
 //        return { [weak controller] feed in
 //            controller?.tableModel = feed.map { model in
