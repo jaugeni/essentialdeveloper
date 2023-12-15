@@ -125,11 +125,15 @@ Location</string>
                         <connections>
                             <outlet property="dataSource" destination="0X7-aP-dOh" id="QRH-cj-5cX"/>
                             <outlet property="delegate" destination="0X7-aP-dOh" id="KDb-KD-QFq"/>
+                            <outlet property="prefetchDataSource" destination="0X7-aP-dOh" id="QXn-2v-6Kx"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PgG-Ve-bhk">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="0X7-aP-dOh" eventType="valueChanged" id="gky-k0-aaj"/>
+                        </connections>
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8kh-ha-p7S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

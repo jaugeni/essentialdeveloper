@@ -7,40 +7,41 @@
 
 import UIKit
 
-protocol FeedRefreshViewControllerDelegate {
-    func didRequestFeedRefresh()
-}
+// MARK: - before storyboard MVP
+//protocol FeedRefreshViewControllerDelegate {
+//    func didRequestFeedRefresh()
+//}
 
-final public class FeedRefreshViewController: NSObject, FeedLoadingView {
-    
-    public lazy var view = loadingView()
-    
-    private let delegate: FeedRefreshViewControllerDelegate
-    
-    init(delegate: FeedRefreshViewControllerDelegate) {
-        self.delegate = delegate
-    }
-    
-    @objc func refresh() {
-        delegate.didRequestFeedRefresh()
-    }
-    
-    func display(_ viewModel: FeedLoadingViewModel) {
-        if viewModel.isLoading {
-            view.beginRefreshing()
-        } else {
-            view.endRefreshing()
-        }
-    }
-    
-    private func loadingView() -> UIRefreshControl {
-        let view = UIRefreshControl()
-        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        return view
-    }
-}
+//final public class FeedRefreshViewController: NSObject, FeedLoadingView {
+//    
+//    public lazy var view = loadingView()
+//    
+//    private let delegate: FeedRefreshViewControllerDelegate
+//    
+//    init(delegate: FeedRefreshViewControllerDelegate) {
+//        self.delegate = delegate
+//    }
+//    
+//    @objc func refresh() {
+//        delegate.didRequestFeedRefresh()
+//    }
+//    
+//    func display(_ viewModel: FeedLoadingViewModel) {
+//        if viewModel.isLoading {
+//            view.beginRefreshing()
+//        } else {
+//            view.endRefreshing()
+//        }
+//    }
+//    
+//    private func loadingView() -> UIRefreshControl {
+//        let view = UIRefreshControl()
+//        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+//        return view
+//    }
+//}
 
-// MVVMV Version
+// MARK: -  MVVMV Version
 //final public class FeedRefreshViewController: NSObject {
 //     public lazy var view = binded(UIRefreshControl())
 //
