@@ -7,29 +7,59 @@
 
 import UIKit
 
-final public class FeedRefreshViewController: NSObject {
-     public lazy var view = binded(UIRefreshControl())
+final public class FeedRefreshViewController: NSObject, FeedLoadingView {
     
-    private let viewModel: FeedViewModel
+     public lazy var view = loadingView()
     
-    init(viewModel: FeedViewModel) {
-        self.viewModel = viewModel
+    private let presenter: FeedPresenter
+    
+    init(presenter: FeedPresenter) {
+        self.presenter = presenter
     }
     
     @objc func refresh() {
-        viewModel.loadFeed()
+        presenter.loadFeed()
     }
     
-    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
-        
-        viewModel.onLoadingStateChange = { [weak self] isLoading in
-            if isLoading {
-                self?.view.beginRefreshing()
-            } else {
-                self?.view.endRefreshing()
-            }
+    func display(isLoading: Bool) {
+        if isLoading {
+            view.beginRefreshing()
+        } else {
+            view.endRefreshing()
         }
+    }
+    
+    private func loadingView() -> UIRefreshControl {
+        let view = UIRefreshControl()
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return view
     }
 }
+
+// MVVMV Version
+//final public class FeedRefreshViewController: NSObject {
+//     public lazy var view = binded(UIRefreshControl())
+//    
+//    private let viewModel: FeedViewModel
+//    
+//    init(viewModel: FeedViewModel) {
+//        self.viewModel = viewModel
+//    }
+//    
+//    @objc func refresh() {
+//        viewModel.loadFeed()
+//    }
+//    
+//    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
+//        
+//        viewModel.onLoadingStateChange = { [weak self] isLoading in
+//            if isLoading {
+//                self?.view.beginRefreshing()
+//            } else {
+//                self?.view.endRefreshing()
+//            }
+//        }
+//        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+//        return view
+//    }
+//}

@@ -8,6 +8,8 @@
 import Foundation
 import EssentialFeed
 
+// MVVM example check MVP FeedPresenter
+
 final class FeedViewModel {
     typealias Observer<T> = (T) -> Void
     private let feedLoader: FeedLoader
