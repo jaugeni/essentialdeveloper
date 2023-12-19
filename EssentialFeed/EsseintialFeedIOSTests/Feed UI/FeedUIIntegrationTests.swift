@@ -18,7 +18,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(sut.title, localized("FEED_VIEW_TITLE"))
-     }
+    }
     
     func test_loadFeedActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
@@ -259,16 +259,31 @@ final class FeedUIIntegrationTests: XCTestCase {
     }
     
     func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
-         let (sut, loader) = makeSUT()
-         sut.loadViewIfNeeded()
-
-         let exp = expectation(description: "Wait for background queue")
-         DispatchQueue.global().async {
-             loader.completeFeedLoading(at: 0)
-             exp.fulfill()
-         }
-         wait(for: [exp], timeout: 1.0)
-     }
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeFeedLoading(at: 0)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_loadImageDataCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [makeImage()])
+        _ = sut.simulateFeedImageViewVisible(at: 0)
+        
+        let exp = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeImageLoading(with: self.anyImageData(), at: 0)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
     
     // MARK: - Helpers
     
